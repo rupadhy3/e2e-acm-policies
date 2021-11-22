@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-rhacm-managedcluster-system-policies
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placementrule-configuration
+  namespace: ns-rhacm-managedcluster-system-policies
+spec:
+  clusterConditions:
+  - type: ManagedClusterConditionAvailable
+    status: "True"
+  clusterSelector:
+    matchExpressions:
+    - key: usage
+      operator: In
+      values:
+      - systemrequire

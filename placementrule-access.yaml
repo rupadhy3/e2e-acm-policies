@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-rhacm-managedcluster-access-policies
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placementrule-access
+  namespace: rhacm-managedcluster-access-policies-ns
+spec:
+  clusterConditions:
+  - type: ManagedClusterConditionAvailable
+    status: "True"
+  clusterSelector:
+    matchExpressions:
+    - key: usage
+      operator: In
+      values:
+      - accessrequire

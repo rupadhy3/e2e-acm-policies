@@ -1,0 +1,2 @@
+ocp_namespace_state: "absent"
+ocp_namespace_name: "forbidden-namespace"
