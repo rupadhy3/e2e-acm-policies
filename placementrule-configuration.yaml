@@ -18,4 +18,4 @@ spec:
     - key: usage
       operator: In
       values:
-      - configrequire
+      - "configrequire"
