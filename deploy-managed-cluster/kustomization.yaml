@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: "<CLUSTER_NAME>"
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+- name: <CLUSTER_NAME>-install-config
+  type: "Opaque"
+  files:
+    - "install-config.yaml"
+- name: <CLUSTER_NAME>-ssh-private-key
+  type: "Opaque"
+  files:
+    - "ssh-privatekey"
+- name: <CLUSTER_NAME>-aws-creds
+  type: "Opaque"
+  literals:
+    - aws_access_key_id=<AWS_ACCESS_KEY>
+    - aws_secret_access_key=<AWS_SECRET_ACCESS_KEY>
+- name: <CLUSTER_NAME>-pull-secret
+  type: "kubernetes.io/dockerconfigjson"
+  literals:
+    - .dockerconfigjson='<OCP_PULL_SECRET>'
+
+resources:
+  - namespace.yaml
+  - machine-pool.yaml
+  - clusterimageset.yaml
+  - klusterletaddon.yaml
+  - clusterdeployment.yaml
+  - managedcluster.yaml
